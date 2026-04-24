@@ -1,7 +1,7 @@
 # pcap2tensor
 
 **PCAP → ML tensor extraction for network intrusion detection research.**
-
+ 
 A fast, streaming, production-grade Python library for turning raw packet captures into training-ready tensors. Built for NIDS researchers tired of rolling their own extraction pipeline for every paper.
 
 [![PyPI](https://img.shields.io/pypi/v/pcap2tensor.svg)](https://pypi.org/project/pcap2tensor)
