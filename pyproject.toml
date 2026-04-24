@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pcapml"
+version = "0.1.0"
+description = "PCAP → ML tensor extraction for network intrusion detection research."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Vickson Ferrel", email = "vickson@vixdev.cloud" }
+]
+keywords = [
+    "pcap",
+    "network-security",
+    "intrusion-detection",
+    "nids",
+    "machine-learning",
+    "deep-learning",
+    "encrypted-traffic",
+    "feature-extraction",
+    "pytorch",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Security",
+    "Topic :: System :: Networking :: Monitoring",
+]
+dependencies = [
+    "scapy>=2.5.0",
+    "torch>=2.0.0",
+    "numpy>=1.20.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0",
+    "build>=1.0",
+    "twine>=4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/vicksonferrel/pcapml"
+Repository = "https://github.com/vicksonferrel/pcapml"
+Issues = "https://github.com/vicksonferrel/pcapml/issues"
+"Paper (AEGIS)" = "https://arxiv.org/abs/2604.02149"
+
+[project.scripts]
+pcapml = "pcapml.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "SIM", "RUF"]
+ignore = ["E501"]
