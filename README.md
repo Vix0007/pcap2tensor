@@ -172,8 +172,9 @@ If you use this library in research, please cite the companion paper:
 
 ```bibtex
 @article{ferrel2026aegis,
-  title   = {AEGIS: Topological-Vector Dynamic Hierarchical State Space Model
-             for Real-Time Encrypted Traffic Detection},
+  title   = {AEGIS: Adversarial Entropy-Guided Immune System --
+             Thermodynamic State Space Models for Zero-Day Network
+             Evasion Detection},
   author  = {Ferrel, Vickson},
   journal = {arXiv preprint arXiv:2604.02149},
   year    = {2026},
