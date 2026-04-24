@@ -8,7 +8,7 @@ A fast, streaming, production-grade Python library for turning raw packet captur
 [![Python](https://img.shields.io/pypi/pyversions/pcap2tensor.svg)](https://pypi.org/project/pcap2tensor)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-2604.02149-b31b1b.svg)](https://arxiv.org/abs/2604.02149)
-
+[![CI](https://github.com/Vix0007/pcap2tensor/actions/workflows/ci.yml/badge.svg)](https://github.com/Vix0007/pcap2tensor/actions/workflows/ci.yml)
 ---
 
 ## Why this exists
