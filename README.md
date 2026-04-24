@@ -1,5 +1,7 @@
 # pcap2tensor
 
+![Vixero Tech](assets/banner.png)
+
 **PCAP → ML tensor extraction for network intrusion detection research.**
  
 A fast, streaming, production-grade Python library for turning raw packet captures into training-ready tensors. Built for NIDS researchers tired of rolling their own extraction pipeline for every paper.
