@@ -1,7 +1,7 @@
-"""Quickstart: three ways to use pcapml."""
+"""Quickstart: three ways to use pcap2tensor."""
 from pathlib import Path
 
-from pcapml import AEGIS_6D, PCAPExtractor, batch_extract, extract
+from pcap2tensor import AEGIS_6D, PCAPExtractor, batch_extract, extract
 
 PCAP = "capture.pcap"
 OUT = Path("./tensors")

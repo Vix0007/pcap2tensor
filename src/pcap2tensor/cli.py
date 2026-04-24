@@ -1,12 +1,12 @@
-"""Command-line interface: ``pcapml extract``, ``pcapml batch``, ``pcapml presets``."""
+"""Command-line interface: ``pcap2tensor extract``, ``pcap2tensor batch``, ``pcap2tensor presets``."""
 from __future__ import annotations
 
 import argparse
 import sys
 
-from pcapml import __version__
-from pcapml.extractor import PCAPExtractor, batch_extract
-from pcapml.presets import list_presets
+from pcap2tensor import __version__
+from pcap2tensor.extractor import PCAPExtractor, batch_extract
+from pcap2tensor.presets import list_presets
 
 
 def _cmd_extract(args: argparse.Namespace) -> int:
@@ -55,11 +55,11 @@ def _cmd_presets(_: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="pcapml",
+        prog="pcap2tensor",
         description="PCAP → ML tensor extraction for network intrusion detection.",
     )
     p.add_argument(
-        "-V", "--version", action="version", version=f"pcapml {__version__}"
+        "-V", "--version", action="version", version=f"pcap2tensor {__version__}"
     )
     sub = p.add_subparsers(dest="command", required=True)
 
@@ -83,7 +83,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=2_000_000,
         help="Packets buffered before flushing a chunk.",
     )
-    ex.add_argument("-p", "--prefix", default="pcapml", help="Output filename prefix.")
+    ex.add_argument("-p", "--prefix", default="pcap2tensor", help="Output filename prefix.")
     ex.add_argument("-q", "--quiet", action="store_true", help="Suppress output.")
     ex.set_defaults(func=_cmd_extract)
 
@@ -107,7 +107,7 @@ def build_parser() -> argparse.ArgumentParser:
         default=2_000_000,
         help="Packets buffered per chunk.",
     )
-    ba.add_argument("-p", "--prefix", default="pcapml", help="Output filename prefix.")
+    ba.add_argument("-p", "--prefix", default="pcap2tensor", help="Output filename prefix.")
     ba.add_argument(
         "-n", "--workers", type=int, default=4, help="Parallel worker processes."
     )

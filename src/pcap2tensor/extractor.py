@@ -17,9 +17,9 @@ from scapy.layers.inet import IP
 from scapy.layers.inet6 import IPv6
 from tqdm import tqdm
 
-from pcapml.features import Feature
-from pcapml.presets import get_preset
-from pcapml.windowing import sliding_window
+from pcap2tensor.features import Feature
+from pcap2tensor.presets import get_preset
+from pcap2tensor.windowing import sliding_window
 
 PathLike = Union[str, Path]
 
@@ -29,7 +29,7 @@ class PCAPExtractor:
 
     Example:
 
-        >>> from pcapml import PCAPExtractor
+        >>> from pcap2tensor import PCAPExtractor
         >>> extractor = PCAPExtractor(features="aegis-6d", window_size=1000, stride=500)
         >>> tensor = extractor.extract("capture.pcap")
         >>> tensor.shape
@@ -192,7 +192,7 @@ class PCAPExtractor:
         self,
         pcap_path: PathLike,
         output_dir: PathLike,
-        prefix: str = "pcapml",
+        prefix: str = "pcap2tensor",
         progress: bool = True,
     ) -> list[str]:
         """Extract a PCAP and save each chunk as a separate ``.pt`` file.
@@ -280,7 +280,7 @@ def batch_extract(
     window_size: int = 1000,
     stride: int = 500,
     chunk_size: int = 2_000_000,
-    prefix: str = "pcapml",
+    prefix: str = "pcap2tensor",
     workers: int = 4,
     recursive: bool = True,
 ) -> dict[str, list[str]]:

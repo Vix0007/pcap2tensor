@@ -12,7 +12,7 @@ from collections import Counter
 
 from scapy.layers.inet import TCP, UDP
 
-from pcapml import Direction, Feature, IAT, PCAPExtractor, Size
+from pcap2tensor import Direction, Feature, IAT, PCAPExtractor, Size
 
 
 # ---------------------------------------------------------------------------
@@ -60,7 +60,7 @@ class FlowPacketRate(Feature):
         self._ema: dict[tuple, float] = {}
 
     def __call__(self, pkt) -> float:
-        from pcapml.features import _ip_info, _ports  # internal helpers
+        from pcap2tensor.features import _ip_info, _ports  # internal helpers
         info = _ip_info(pkt)
         if info is None:
             return 0.0

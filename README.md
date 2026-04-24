@@ -4,8 +4,8 @@
 
 A fast, streaming, production-grade Python library for turning raw packet captures into training-ready tensors. Built for NIDS researchers tired of rolling their own extraction pipeline for every paper.
 
-[![PyPI](https://img.shields.io/pypi/v/pcapml.svg)](https://pypi.org/project/pcapml)
-[![Python](https://img.shields.io/pypi/pyversions/pcapml.svg)](https://pypi.org/project/pcapml)
+[![PyPI](https://img.shields.io/pypi/v/pcap2tensor.svg)](https://pypi.org/project/pcap2tensor)
+[![Python](https://img.shields.io/pypi/pyversions/pcap2tensor.svg)](https://pypi.org/project/pcap2tensor)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![arXiv](https://img.shields.io/badge/arXiv-2604.02149-b31b1b.svg)](https://arxiv.org/abs/2604.02149)
 
@@ -20,12 +20,12 @@ Every ML-based network intrusion detection paper reinvents the same pipeline:
 3. Slide a window across the sequence
 4. Save as a tensor
 
-Every implementation is a one-file script that doesn't handle PCAPs larger than RAM, doesn't expose clean extension points for custom features, and quietly crashes on the first malformed packet. `pcapml` is that pipeline, packaged properly — streaming, extensible, and published on PyPI.
+Every implementation is a one-file script that doesn't handle PCAPs larger than RAM, doesn't expose clean extension points for custom features, and quietly crashes on the first malformed packet. `pcap2tensor` is that pipeline, packaged properly — streaming, extensible, and published on PyPI.
 
 ## Install
 
 ```bash
-pip install pcapml
+pip install pcap2tensor
 ```
 
 Python ≥ 3.9. Depends on Scapy, PyTorch, NumPy, tqdm.
@@ -33,7 +33,7 @@ Python ≥ 3.9. Depends on Scapy, PyTorch, NumPy, tqdm.
 ## Quickstart
 
 ```python
-from pcapml import extract
+from pcap2tensor import extract
 
 tensor = extract("capture.pcap", features="aegis-6d", window_size=1000, stride=500)
 print(tensor.shape)     # torch.Size([num_windows, 1000, 6])
@@ -46,7 +46,7 @@ Feed straight into any sequence model — Transformer, LSTM, SSM, CNN.
 Streaming chunked processing — never loads the full PCAP into memory:
 
 ```python
-from pcapml import PCAPExtractor
+from pcap2tensor import PCAPExtractor
 
 extractor = PCAPExtractor(
     features="aegis-6d",
@@ -66,7 +66,7 @@ for chunk in extractor.extract_chunks("massive.pcap"):
 ## Parallel batch
 
 ```python
-from pcapml import batch_extract
+from pcap2tensor import batch_extract
 
 batch_extract("./pcaps/", output_dir="./tensors/", features="aegis-6d", workers=8)
 ```
@@ -74,7 +74,7 @@ batch_extract("./pcaps/", output_dir="./tensors/", features="aegis-6d", workers=
 From the CLI:
 
 ```bash
-pcapml batch ./pcaps/ -o ./tensors/ -n 8
+pcap2tensor batch ./pcaps/ -o ./tensors/ -n 8
 ```
 
 ## Feature presets
@@ -96,7 +96,7 @@ A `Feature` is any stateful callable returning a float or a flat list of floats.
 import math
 from collections import Counter
 from scapy.layers.inet import TCP
-from pcapml import PCAPExtractor, Feature, Size, IAT, Direction
+from pcap2tensor import PCAPExtractor, Feature, Size, IAT, Direction
 
 
 class PayloadEntropy(Feature):
@@ -124,16 +124,16 @@ Return a `list[float]` and set `dim` accordingly for multi-valued features (e.g.
 
 ```bash
 # Single PCAP
-pcapml extract capture.pcap -o ./tensors/
+pcap2tensor extract capture.pcap -o ./tensors/
 
 # Parallel batch over a directory
-pcapml batch ./pcaps/ -o ./tensors/ -n 8
+pcap2tensor batch ./pcaps/ -o ./tensors/ -n 8
 
 # List presets
-pcapml presets
+pcap2tensor presets
 
 # Override everything
-pcapml extract capture.pcap -f extended-10d -w 2000 -s 1000 -c 5000000
+pcap2tensor extract capture.pcap -f extended-10d -w 2000 -s 1000 -c 5000000
 ```
 
 ## Design

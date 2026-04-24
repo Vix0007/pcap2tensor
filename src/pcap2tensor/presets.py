@@ -2,17 +2,17 @@
 
 Presets return fresh ``Feature`` instances with clean state. Resolve by name:
 
-    >>> from pcapml import get_preset
+    >>> from pcap2tensor import get_preset
     >>> feats = get_preset("aegis-6d")
 
 Or import the builder directly:
 
-    >>> from pcapml import AEGIS_6D
+    >>> from pcap2tensor import AEGIS_6D
     >>> feats = AEGIS_6D()
 """
 from __future__ import annotations
 
-from pcapml.features import (
+from pcap2tensor.features import (
     Direction,
     Feature,
     IAT,

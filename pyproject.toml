@@ -55,13 +55,13 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/vicksonferrel/pcapml"
-Repository = "https://github.com/vicksonferrel/pcapml"
-Issues = "https://github.com/vicksonferrel/pcapml/issues"
+Homepage = "https://github.com/Vix0007/pcap2tensor"
+Repository = "https://github.com/Vix0007/pcap2tensor"
+Issues = "https://github.com/Vix0007/pcap2tensor/issues"
 "Paper (AEGIS)" = "https://arxiv.org/abs/2604.02149"
 
 [project.scripts]
-pcapml = "pcapml.cli:main"
+pcap2tensor = "pcap2tensor.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
