@@ -1,4 +1,4 @@
-# pcapml
+# pcap2tensor
 
 **PCAP → ML tensor extraction for network intrusion detection research.**
 
