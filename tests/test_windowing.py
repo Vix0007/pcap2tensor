@@ -1,4 +1,5 @@
 """Tests for sliding window construction."""
+
 import pytest
 import torch
 

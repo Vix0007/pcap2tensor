@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the companion paper."
+title: "pcap2tensor: PCAP to ML tensor extraction for network intrusion detection"
+version: 0.1.0
+date-released: 2026-04-24
+authors:
+  - family-names: "Ferrel"
+    given-names: "Vickson"
+    affiliation: "Vixero Technology Enterprise"
+repository-code: "https://github.com/Vix0007/pcap2tensor"
+license: MIT
+preferred-citation:
+  type: article
+  title: "AEGIS: Adversarial Entropy-Guided Immune System — Thermodynamic State Space Models for Zero-Day Network Evasion Detection"
+  authors:
+    - family-names: "Ferrel"
+      given-names: "Vickson"
+  journal: "arXiv preprint arXiv:2604.02149"
+  year: 2026
+  url: "https://arxiv.org/abs/2604.02149"

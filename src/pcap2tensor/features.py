@@ -11,6 +11,7 @@ Built-in features:
 Custom features: subclass ``Feature``, implement ``__call__``, optionally
 override ``name``, ``dim``, and ``reset``.
 """
+
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -51,10 +52,22 @@ class Feature(ABC):
 _PRIVATE_PREFIXES = (
     "10.",
     "192.168.",
-    "172.16.", "172.17.", "172.18.", "172.19.",
-    "172.20.", "172.21.", "172.22.", "172.23.",
-    "172.24.", "172.25.", "172.26.", "172.27.",
-    "172.28.", "172.29.", "172.30.", "172.31.",
+    "172.16.",
+    "172.17.",
+    "172.18.",
+    "172.19.",
+    "172.20.",
+    "172.21.",
+    "172.22.",
+    "172.23.",
+    "172.24.",
+    "172.25.",
+    "172.26.",
+    "172.27.",
+    "172.28.",
+    "172.29.",
+    "172.30.",
+    "172.31.",
 )
 
 
@@ -83,6 +96,7 @@ def _ports(pkt: Any) -> tuple[int, int]:
 # --------------------------------------------------------------------------- #
 # Built-in features
 # --------------------------------------------------------------------------- #
+
 
 class Size(Feature):
     """Normalized packet size, clipped to [``min_frac``, 1.0].
@@ -202,9 +216,9 @@ class ProtocolOneHot(Feature):
         if info is None:
             return [0.0, 0.0, 0.0, 1.0]
         proto = info[2]
-        if proto == 6:        # TCP
+        if proto == 6:  # TCP
             return [1.0, 0.0, 0.0, 0.0]
-        if proto == 17:       # UDP
+        if proto == 17:  # UDP
             return [0.0, 1.0, 0.0, 0.0]
         if proto in (1, 58):  # ICMPv4 or ICMPv6
             return [0.0, 0.0, 1.0, 0.0]

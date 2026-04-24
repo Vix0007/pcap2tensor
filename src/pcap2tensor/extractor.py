@@ -3,13 +3,15 @@
 Core class: :class:`PCAPExtractor`. One-shot helpers: :func:`extract`,
 :func:`batch_extract`.
 """
+
 from __future__ import annotations
 
 import glob
 import os
+from collections.abc import Iterator
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
-from typing import Any, Iterator, Union
+from typing import Any, Union
 
 import torch
 from scapy.all import PcapReader
@@ -41,7 +43,7 @@ class PCAPExtractor:
 
     def __init__(
         self,
-        features: Union[list[Feature], str] = "aegis-6d",
+        features: list[Feature] | str = "aegis-6d",
         window_size: int = 1000,
         stride: int = 500,
         chunk_size: int = 2_000_000,
@@ -183,9 +185,7 @@ class PCAPExtractor:
         """
         chunks = list(self.extract_chunks(pcap_path, progress=progress))
         if not chunks:
-            return torch.empty(
-                (0, self.window_size, self.feature_dim), dtype=self.dtype
-            )
+            return torch.empty((0, self.window_size, self.feature_dim), dtype=self.dtype)
         return torch.cat(chunks, dim=0)
 
     def save(
@@ -214,9 +214,7 @@ class PCAPExtractor:
                 break
 
         written: list[str] = []
-        for idx, chunk in enumerate(
-            self.extract_chunks(pcap_path, progress=progress), start=1
-        ):
+        for idx, chunk in enumerate(self.extract_chunks(pcap_path, progress=progress), start=1):
             fname = f"{prefix}_{base}_chunk{idx:03d}_w{self.window_size}.pt"
             out = os.path.abspath(os.path.join(str(output_dir), fname))
             torch.save(chunk, out)
@@ -228,9 +226,10 @@ class PCAPExtractor:
 # Module-level convenience
 # --------------------------------------------------------------------------- #
 
+
 def extract(
     pcap_path: PathLike,
-    features: Union[list[Feature], str] = "aegis-6d",
+    features: list[Feature] | str = "aegis-6d",
     window_size: int = 1000,
     stride: int = 500,
     progress: bool = True,
@@ -247,15 +246,14 @@ def extract(
     Returns:
         Tensor of shape ``(num_windows, window_size, feature_dim)``.
     """
-    extractor = PCAPExtractor(
-        features=features, window_size=window_size, stride=stride
-    )
+    extractor = PCAPExtractor(features=features, window_size=window_size, stride=stride)
     return extractor.extract(pcap_path, progress=progress)
 
 
 # --------------------------------------------------------------------------- #
 # Parallel batch processing
 # --------------------------------------------------------------------------- #
+
 
 def _worker(task: tuple) -> tuple[str, list[str], str | None]:
     """Process-pool worker. Returns (pcap_path, written_paths, error_or_None)."""
@@ -269,12 +267,12 @@ def _worker(task: tuple) -> tuple[str, list[str], str | None]:
         )
         written = ext.save(pcap_path, out_dir, prefix=prefix, progress=False)
         return (pcap_path, written, None)
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         return (pcap_path, [], f"{type(e).__name__}: {e}")
 
 
 def batch_extract(
-    input_spec: Union[str, Path, list[PathLike]],
+    input_spec: str | Path | list[PathLike],
     output_dir: PathLike,
     features: str = "aegis-6d",
     window_size: int = 1000,
@@ -311,10 +309,7 @@ def batch_extract(
     if not pcaps:
         raise ValueError(f"No PCAPs found for input: {input_spec!r}")
 
-    tasks = [
-        (p, str(output_dir), features, window_size, stride, chunk_size, prefix)
-        for p in pcaps
-    ]
+    tasks = [(p, str(output_dir), features, window_size, stride, chunk_size, prefix) for p in pcaps]
 
     results: dict[str, list[str]] = {}
     with ProcessPoolExecutor(max_workers=workers) as pool:
@@ -328,7 +323,7 @@ def batch_extract(
 
 
 def _resolve_inputs(
-    spec: Union[str, Path, list[PathLike]],
+    spec: str | Path | list[PathLike],
     recursive: bool,
 ) -> list[str]:
     """Resolve a directory / glob / list into a concrete sorted list of paths."""

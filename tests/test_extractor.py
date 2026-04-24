@@ -1,4 +1,5 @@
 """End-to-end pipeline tests using a temporary synthetic PCAP."""
+
 import pytest
 from scapy.layers.inet import IP, TCP
 from scapy.layers.l2 import Ether
@@ -12,9 +13,12 @@ def tiny_pcap(tmp_path):
     """Create a small synthetic PCAP file."""
     packets = []
     for i in range(50):
-        pkt = Ether() / IP(src="192.168.1.10", dst="8.8.8.8") / TCP(
-            sport=12345, dport=443, flags="PA", window=8192
-        ) / (b"X" * 100)
+        pkt = (
+            Ether()
+            / IP(src="192.168.1.10", dst="8.8.8.8")
+            / TCP(sport=12345, dport=443, flags="PA", window=8192)
+            / (b"X" * 100)
+        )
         pkt.time = 1.0 + i * 0.01
         packets.append(pkt)
     path = tmp_path / "tiny.pcap"

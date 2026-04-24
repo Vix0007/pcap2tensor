@@ -10,12 +10,13 @@ Or import the builder directly:
     >>> from pcap2tensor import AEGIS_6D
     >>> feats = AEGIS_6D()
 """
+
 from __future__ import annotations
 
 from pcap2tensor.features import (
+    IAT,
     Direction,
     Feature,
-    IAT,
     PayloadRatio,
     PortCategory,
     ProtocolOneHot,
@@ -49,8 +50,12 @@ def EXTENDED_10D() -> list[Feature]:
     Output dimension: 10.
     """
     return [
-        Size(), IAT(), Direction(),
-        TCPWindow(), TCPFlags(), PayloadRatio(),
+        Size(),
+        IAT(),
+        Direction(),
+        TCPWindow(),
+        TCPFlags(),
+        PayloadRatio(),
         ProtocolOneHot(),
     ]
 
@@ -61,8 +66,12 @@ def FULL_13D() -> list[Feature]:
     Output dimension: 13.
     """
     return [
-        Size(), IAT(), Direction(),
-        TCPWindow(), TCPFlags(), PayloadRatio(),
+        Size(),
+        IAT(),
+        Direction(),
+        TCPWindow(),
+        TCPFlags(),
+        PayloadRatio(),
         ProtocolOneHot(),
         PortCategory(),
     ]
@@ -83,9 +92,7 @@ def get_preset(name: str) -> list[Feature]:
     """
     key = name.lower().replace("_", "-")
     if key not in _PRESETS:
-        raise ValueError(
-            f"Unknown preset: {name!r}. Available: {sorted(_PRESETS.keys())}"
-        )
+        raise ValueError(f"Unknown preset: {name!r}. Available: {sorted(_PRESETS.keys())}")
     return _PRESETS[key]()
 
 

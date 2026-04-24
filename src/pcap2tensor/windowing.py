@@ -1,4 +1,5 @@
 """Sliding-window sequence construction."""
+
 from __future__ import annotations
 
 import torch
@@ -24,9 +25,7 @@ def sliding_window(
         ValueError: If ``tensor`` is not 2D or window/stride are invalid.
     """
     if tensor.dim() != 2:
-        raise ValueError(
-            f"Expected 2D tensor of shape (N, features), got {tuple(tensor.shape)}"
-        )
+        raise ValueError(f"Expected 2D tensor of shape (N, features), got {tuple(tensor.shape)}")
     if window_size < 1:
         raise ValueError(f"window_size must be >= 1, got {window_size}")
     if stride < 1:

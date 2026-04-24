@@ -1,11 +1,12 @@
 """Tests for built-in feature extractors using synthetic packets."""
+
 import pytest
 from scapy.layers.inet import IP, TCP, UDP
 from scapy.layers.l2 import Ether
 
 from pcap2tensor import (
-    Direction,
     IAT,
+    Direction,
     PayloadRatio,
     PortCategory,
     ProtocolOneHot,
@@ -15,10 +16,22 @@ from pcap2tensor import (
 )
 
 
-def make_tcp_packet(src="192.168.1.10", dst="8.8.8.8", sport=12345, dport=443,
-                    flags="S", window=8192, payload=b"", timestamp=1.0):
-    pkt = Ether() / IP(src=src, dst=dst) / TCP(sport=sport, dport=dport,
-                                               flags=flags, window=window) / payload
+def make_tcp_packet(
+    src="192.168.1.10",
+    dst="8.8.8.8",
+    sport=12345,
+    dport=443,
+    flags="S",
+    window=8192,
+    payload=b"",
+    timestamp=1.0,
+):
+    pkt = (
+        Ether()
+        / IP(src=src, dst=dst)
+        / TCP(sport=sport, dport=dport, flags=flags, window=window)
+        / payload
+    )
     pkt.time = timestamp
     return pkt
 

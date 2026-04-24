@@ -9,13 +9,14 @@ Quick start:
 
 See https://github.com/Vix0007/pcap2tensor for full documentation.
 """
+
 from __future__ import annotations
 
 from pcap2tensor.extractor import PCAPExtractor, batch_extract, extract
 from pcap2tensor.features import (
+    IAT,
     Direction,
     Feature,
-    IAT,
     PayloadRatio,
     PortCategory,
     ProtocolOneHot,
@@ -29,28 +30,28 @@ from pcap2tensor.windowing import sliding_window
 __version__ = "0.1.0"
 
 __all__ = [
-    # Core API
-    "PCAPExtractor",
-    "extract",
-    "batch_extract",
-    "sliding_window",
-    # Feature classes
-    "Feature",
-    "Size",
-    "IAT",
-    "Direction",
-    "TCPWindow",
-    "TCPFlags",
-    "PayloadRatio",
-    "ProtocolOneHot",
-    "PortCategory",
     # Presets
     "AEGIS_6D",
     "BASIC_3D",
     "EXTENDED_10D",
     "FULL_13D",
-    "get_preset",
-    "list_presets",
+    "IAT",
+    "Direction",
+    # Feature classes
+    "Feature",
+    # Core API
+    "PCAPExtractor",
+    "PayloadRatio",
+    "PortCategory",
+    "ProtocolOneHot",
+    "Size",
+    "TCPFlags",
+    "TCPWindow",
     # Meta
     "__version__",
+    "batch_extract",
+    "extract",
+    "get_preset",
+    "list_presets",
+    "sliding_window",
 ]
